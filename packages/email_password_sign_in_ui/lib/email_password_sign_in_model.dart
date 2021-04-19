@@ -110,7 +110,7 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
       //EmailPasswordSignInFormType.register:
       //    EmailPasswordSignInStrings.haveAnAccount,
       EmailPasswordSignInFormType.signIn:
-          EmailPasswordSignInStrings.needAnAccount,
+          EmailPasswordSignInStrings.forgotPassword,
       EmailPasswordSignInFormType.forgotPassword:
           EmailPasswordSignInStrings.backToSignIn,
     }[formType]!;
