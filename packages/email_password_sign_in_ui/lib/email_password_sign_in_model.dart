@@ -1,6 +1,7 @@
 part of email_password_sign_in_ui;
 
-enum EmailPasswordSignInFormType { signIn, register, forgotPassword }
+//enum EmailPasswordSignInFormType { signIn, register, forgotPassword }
+enum EmailPasswordSignInFormType { signIn, forgotPassword }
 
 class EmailAndPasswordValidators {
   final TextInputFormatter emailInputFormatter =
@@ -41,10 +42,10 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
           await firebaseAuth.signInWithCredential(
               EmailAuthProvider.credential(email: email, password: password));
           break;
-        case EmailPasswordSignInFormType.register:
-          await firebaseAuth.createUserWithEmailAndPassword(
-              email: email, password: password);
-          break;
+        //case EmailPasswordSignInFormType.register:
+        //  await firebaseAuth.createUserWithEmailAndPassword(
+        //      email: email, password: password);
+        //  break;
         case EmailPasswordSignInFormType.forgotPassword:
           await firebaseAuth.sendPasswordResetEmail(email: email);
           updateWith(isLoading: false);
@@ -87,17 +88,17 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
   }
 
   String get passwordLabelText {
-    if (formType == EmailPasswordSignInFormType.register) {
-      return EmailPasswordSignInStrings.password8CharactersLabel;
-    }
+    //jif (formType == EmailPasswordSignInFormType.register) {
+    //  return EmailPasswordSignInStrings.password8CharactersLabel;
+    //}
     return EmailPasswordSignInStrings.passwordLabel;
   }
 
   // Getters
   String get primaryButtonText {
     return <EmailPasswordSignInFormType, String>{
-      EmailPasswordSignInFormType.register:
-          EmailPasswordSignInStrings.createAnAccount,
+      //EmailPasswordSignInFormType.register:
+      //    EmailPasswordSignInStrings.createAnAccount,
       EmailPasswordSignInFormType.signIn: EmailPasswordSignInStrings.signIn,
       EmailPasswordSignInFormType.forgotPassword:
           EmailPasswordSignInStrings.sendResetLink,
@@ -106,8 +107,8 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
 
   String get secondaryButtonText {
     return <EmailPasswordSignInFormType, String>{
-      EmailPasswordSignInFormType.register:
-          EmailPasswordSignInStrings.haveAnAccount,
+      //EmailPasswordSignInFormType.register:
+      //    EmailPasswordSignInStrings.haveAnAccount,
       EmailPasswordSignInFormType.signIn:
           EmailPasswordSignInStrings.needAnAccount,
       EmailPasswordSignInFormType.forgotPassword:
@@ -117,8 +118,9 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
 
   EmailPasswordSignInFormType get secondaryActionFormType {
     return <EmailPasswordSignInFormType, EmailPasswordSignInFormType>{
-      EmailPasswordSignInFormType.register: EmailPasswordSignInFormType.signIn,
-      EmailPasswordSignInFormType.signIn: EmailPasswordSignInFormType.register,
+      //EmailPasswordSignInFormType.register: EmailPasswordSignInFormType.signIn,
+      EmailPasswordSignInFormType.signIn:
+          EmailPasswordSignInFormType.forgotPassword,
       EmailPasswordSignInFormType.forgotPassword:
           EmailPasswordSignInFormType.signIn,
     }[formType]!;
@@ -126,8 +128,8 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
 
   String get errorAlertTitle {
     return <EmailPasswordSignInFormType, String>{
-      EmailPasswordSignInFormType.register:
-          EmailPasswordSignInStrings.registrationFailed,
+      //EmailPasswordSignInFormType.register:
+      //    EmailPasswordSignInStrings.registrationFailed,
       EmailPasswordSignInFormType.signIn:
           EmailPasswordSignInStrings.signInFailed,
       EmailPasswordSignInFormType.forgotPassword:
@@ -137,7 +139,7 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
 
   String get title {
     return <EmailPasswordSignInFormType, String>{
-      EmailPasswordSignInFormType.register: EmailPasswordSignInStrings.register,
+      //EmailPasswordSignInFormType.register: EmailPasswordSignInStrings.register,
       EmailPasswordSignInFormType.signIn: EmailPasswordSignInStrings.signIn,
       EmailPasswordSignInFormType.forgotPassword:
           EmailPasswordSignInStrings.forgotPassword,
@@ -149,9 +151,9 @@ class EmailPasswordSignInModel with EmailAndPasswordValidators, ChangeNotifier {
   }
 
   bool get canSubmitPassword {
-    if (formType == EmailPasswordSignInFormType.register) {
-      return passwordRegisterSubmitValidator.isValid(password);
-    }
+    //if (formType == EmailPasswordSignInFormType.register) {
+    //  return passwordRegisterSubmitValidator.isValid(password);
+    //}
     return passwordSignInSubmitValidator.isValid(password);
   }
 
